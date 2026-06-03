@@ -1,0 +1,10 @@
+{
+  "name": "batch_export",
+  "description": "批量导出图层或选区为独立图片文件",
+  "params": [
+    {"name": "outputDir", "type": "string", "description": "输出文件夹路径"},
+    {"name": "format", "type": "string", "optional": true, "description": "输出格式: 'png'（默认）, 'jpg', 'psd'"},
+    {"name": "exportMode", "type": "string", "optional": true, "description": "'visibleLayers' 只导出可见图层（默认）, 'allLayers' 全部导出, 'currentLayer' 当前选中图层"},
+    {"name": "fileNamePrefix", "type": "string", "optional": true, "description": "文件名前缀（默认用文档名）"}
+  ]
+}

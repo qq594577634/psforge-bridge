@@ -1,0 +1,9 @@
+{
+  "name": "replace_image",
+  "description": "替换指定图层中的图片（支持智能对象和普通图层）",
+  "params": [
+    {"name": "layerName", "type": "string", "description": "要替换的图层名称"},
+    {"name": "imagePath", "type": "string", "description": "新图片的完整路径（支持 PNG/JPG/PSD）"},
+    {"name": "fitMode", "type": "string", "optional": true, "description": "适配方式: 'fill' 拉伸填满, 'fit' 等比适配（默认）, 'none' 不缩放"}
+  ]
+}
