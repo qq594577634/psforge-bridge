@@ -4,7 +4,7 @@ import time
 from typing import Any
 
 from loguru import logger
-from photoshop import Session
+import win32com.client
 
 from psforge.ps_adapter.utils import retry_on_ps_error
 
@@ -34,13 +34,11 @@ class PhotoshopApp:
         try:
             logger.info("Connecting to Photoshop...")
 
-            # Create session
-            self._session = Session()
-            self._session.__enter__()
-            self._app = self._session.app
+            # Connect using win32com directly (more reliable than photoshop.Session)
+            self._app = win32com.client.Dispatch('Photoshop.Application')
 
             # Disable all dialogs to prevent blocking
-            self._execute_javascript_internal("app.displayDialogs = DialogModes.NO;")
+            self._app.DoJavaScript("app.displayDialogs = DialogModes.NO;")
 
             logger.info("Successfully connected to Photoshop")
 
@@ -51,9 +49,7 @@ class PhotoshopApp:
     def _disconnect(self) -> None:
         """Disconnect from Photoshop."""
         try:
-            if self._session:
-                self._session.__exit__(None, None, None)
-                self._session = None
+            if self._app:
                 self._app = None
                 logger.info("Disconnected from Photoshop")
         except Exception as e:
@@ -86,7 +82,7 @@ class PhotoshopApp:
         if self._app is None:
             self._connect()
 
-        return self._app.doJavaScript(script)
+        return self._app.DoJavaScript(script)
 
     @retry_on_ps_error(max_attempts=3, base_wait=1.0)
     def execute_javascript(self, script: str) -> Any:
@@ -143,7 +139,7 @@ class PhotoshopApp:
             Version string, or 'Unknown' if cannot be determined.
         """
         try:
-            return str(self.app.version)
+            return str(self._app.Version)
         except Exception as e:
             logger.error(f"Failed to get PS version: {e}")
             return "Unknown"
