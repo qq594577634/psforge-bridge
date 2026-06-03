@@ -1,0 +1,12 @@
+{
+  "name": "modify_text",
+  "description": "修改指定图层的文字内容、字号和颜色",
+  "params": [
+    {"name": "layerName", "type": "string", "description": "目标文字图层名称"},
+    {"name": "newContent", "type": "string", "description": "新的文字内容"},
+    {"name": "fontSize", "type": "number", "optional": true, "description": "字号（留空不改）"},
+    {"name": "fontColor", "type": "string", "optional": true, "description": "字体颜色 HEX，如 #E60023（留空不改）"},
+    {"name": "positionX", "type": "number", "optional": true, "description": "X 坐标"},
+    {"name": "positionY", "type": "number", "optional": true, "description": "Y 坐标"}
+  ]
+}

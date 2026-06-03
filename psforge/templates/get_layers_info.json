@@ -1,0 +1,5 @@
+{
+  "name": "get_layers_info",
+  "description": "获取当前PS文档所有图层的名称、类型和可见性信息",
+  "params": []
+}
